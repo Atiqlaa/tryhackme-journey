@@ -1,0 +1,118 @@
+Room: https://tryhackme.com/room/cloudsecuritypitfalls ( New room 1/30/2026 )
+Explore the risks companies face when migrating to the cloud, and learn how to address them in a SOC.
+
+Task 2 ]
+What is cloud?
+The cloud is a paradigm in which computing resources are hosted and managed by third-party providers and delivered on demand via the Internet. Users can access, configure, and pay for these services as needed, without owning or maintaining the underlying hardware.
+
+Cloud service main models:
+1) LaaS
+Managing a server room or data center. You are fully responsible for its physical security, hardware stability, software updates, network routing, and many other tasks
+IaaS is a cloud service model where computing infrastructure is provided online on demand.
+Example: Amazon AWS and Google Cluod
+You can launch any vm in the cloud in a web GUI
+
+2) PaaS
+Paas ( Platfrom as a Service ), a cloud service model for simple development and hosting web app
+Example: Vercel, Heroku and Google App Engine
+
+
+3) SaaS
+SaaS ( Service as a Serivce ), allows users and companies to launch complex apps in the cloud WITHOUT installing any software on theri compiters.
+Example: Zoom, Google Docs and Gmail
+SaaS usually used by a non-technial audience.
+
+Q1: Which cloud model allows you to migrate a big on-premises network to the cloud?
+A1: LaaS
+
+Q2: Which cloud model do Elastic Cloud and CrowdStrike Falcon fit into?
+A2: SaaS
+
+Task 3]
+
+Security OF the Cloud.
+Cloud computing is built on top of the same core technologies as traditional on-permises.
+Fact: Clouds are not invulnerable and, just like your computer, are at risk of attacks, thats why some peapole assume this as someone else's computer
+
+Risk of Cloud Vulnerabilities.
+Treat this as a form of supply chain risk, don't blindly trust the cloud provider, but apply the same defensive principles: segment the network, analyze login activity, and monitor endpoint behavior.
+
+For less popular cloud service, chance of compromise is much higher than popular one.
+There a lot of cases where a beach of a local LaaS provider resulted in the deploment of malware on all hosted VMs, or breach of SaaS led to exposure of sensitive od data.
+
+Risk of Poor Cloud Visibility.
+As an end user, you have no visibility into the cloud provider's internal environment. For example, between August 8 and August 18, 2025, adversaries used stolen Salesloft (SaaS) OAuth tokens to exfiltrate data from certain SaaS customers' tenants. As an end user, you can't detect it, as the malicious activity occurred entirely within SaaS infrastructure - essentially, "someone else's computer".
+Using cloud service means entrusting your data to third-party vendors, who will never provide their internal security logs upon request.
+This is especially critical to maintain control over SaaS usage. Other departments may unknowingly upload sensitive data to untrusted SaaS applications, creating shadow IT risks that can later lead to unexpected breaches.
+
+Incidents of the Cloud:-
+Google Cloud ( LaaS)
+In 2025, a minor vulnerability in GCP Cloud Run allowed unauthorized access to the victims' container images, The attacker accesses restricted container images or injects malicious code there.
+
+Q1: Is the cloud provider responsible for securing and monitoring its own infrastructure (Yea/Nay)?
+A1: Yea
+
+Q2: But should you trust the cloud provider without watching for supply chain threats? (Yea/Nay)
+A2: Nay
+
+Task 4 ]
+
+Security IN the Cloud
+Even cloud provider takes care of security, it's still your responsibility to protect resources in the cloud: VMs you host in IaaS, applications you build with PaaS, or credentials to your SaaS accounts. Everything you have in the cloud requires the same level of monitoring and hardening as on-premises systems.
+More details here: https://aws.amazon.com/compliance/shared-responsibility-model/
+
+Cloud Migration Pitfalls
+Misconception: migrating an old, unpatched virtual machine to the cloud somehow makes it new and secure,  or that moving files to Google Drive guarantees protection from ransomware. Neither is true.
+While cloud environments can reduce exposure to certain traditional attack vectors, they also introduce new, cloud-specific threats that are often overlooked by IT teams.
+
+Issues:
+People tend to apply their on-premises security practices to cloud environments. For instance, it is acceptable to use 12-character passwords without MFA in an isolated Active Directory network, but it is critically dangerous in public clouds accessible from anywhere.
+
+Logging in Clouds.
+You cant install the SIEM agent in the cloud and collect logs from there the same was as from on-permises.
+You have to rely on the cloud provider's solution.
+Some vendor provide comprehensive logging serivce such as AWS CloudTraild.
+In the majority of cases, cloud logging is limited
+where.. 
+
+Paid Logs: Logging to SIEM may require an additional payment or license
+Poor Format: Log fields may be incomplete, unstructured, or not documented
+Lack of Integration: In some cases, solutions don't support logging to SIEM at all
+
+Incidents in the Cloud:-
+Capital One Bank, A misconfiguration in the bank's AWS resources allowed the attackers to access all data within the bank's S3 cloud storage. Adversaries stole 1 million Social Insurance Numbers and 140 thousand Social Security numbers of the bank's credit card customers.
+
+Q1: Does moving an unpatched server to the cloud make it secure again? (Yea/Nay)
+A1: Nay
+
+Q2: What is the first major obstacle to integrating most cloud products with a SIEM?
+A2: Paid Logs
+
+Task 5]
+Cloud security monitoring
+
+What to protect and monitor?
+The effort required to build monitoring in the cloud differs depending on the cloud service model. For example, SaaS is the simplest, as all you have to do is ingest the logs in SIEM via the provider's API and monitor for risky actions, such as when a confidential Google Drive document is made public, an internal GitHub repository is downloaded, or when someone logs in to Notion from a suspicious IP and exports all corporate pages. On the other hand, covering IaaS is a more challenging task, as you need to cover both:
+
+Workloads: Monitor virtual machines or containers, same as in on-premises
+Cloud Services: Monitor database queries, storage access, and many more
+Control Plane: Monitor logins and actions within the cloud admin console
+
+Data Sources for Monitoring.
+EDRs are often unsupported due to containerized workloads and auto-scaling; SIEM integration with the provider's logging APIs may be difficult; and forensic investigation is constrained by a lack of accessible memory or disk artifacts.
+
+Common Cloud Security Tools.
+Cloud Access Security Brokers (CASB) enforce security policies, Cloud Workload Protection Platforms (CWPP) protect against malware, Cloud Security Posture Management (CSPM) alert on misconfigurations.
+
+Q1: What term describes cloud compute resources like VMs or containers?
+A1: Workloads
+
+Q2: Which of the mentioned cloud security tools do Falco and Tetragon fit into?
+A2: CWPP
+
+Task 6]
+
+A1: THM{flag_as_a_service!}
+A2: THM{ready_for_cloud_migration!}
+
+Ends.
